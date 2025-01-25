@@ -1,0 +1,38 @@
+package com.example.carrentalsystem.service;
+
+import com.example.carrentalsystem.model.Car;
+import com.example.carrentalsystem.repository.CarRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class CarService {
+    private final CarRepository carRepository;
+
+    public List<Car> findAllAvailable() {
+        return carRepository.findAll();
+    }
+
+    public Car saveCar(Car car) {
+        return carRepository.save(car);
+    }
+
+    public Car updateCar(Long id, Car updatedCar) {
+        return carRepository.findById(id).map(car -> {
+            car.setMake(updatedCar.getMake());
+            car.setModel(updatedCar.getModel());
+            car.setYear(updatedCar.getYear());
+            car.setPricePerDay(updatedCar.getPricePerDay());
+            car.setAvailabilityStatus(updatedCar.getAvailabilityStatus());
+            car.setImagePath(updatedCar.getImagePath());
+            return carRepository.save(car);
+        }).orElseThrow(() -> new RuntimeException("Car not found"));
+    }
+
+    public void deleteCar(Long id) {
+        carRepository.deleteById(id);
+    }
+}
