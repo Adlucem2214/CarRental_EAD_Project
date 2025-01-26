@@ -17,6 +17,8 @@ public class Car {
     private int year;          // New field for car manufacturing year
     private double pricePerDay; 
     
-    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Booking booking;
+	/*
+	 * @OneToOne(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+	 * private Booking booking;
+	 */
 }

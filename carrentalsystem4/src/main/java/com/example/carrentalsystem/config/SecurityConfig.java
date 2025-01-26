@@ -40,8 +40,16 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll() // Public endpoints
-                .requestMatchers("/cars/**").permitAll()
+                .requestMatchers("/cars/**").permitAll()   
                 .requestMatchers("/uploads/**").permitAll()
+                .requestMatchers("/auth/register/**").permitAll()
+                .requestMatchers("/auth/login/**").permitAll()
+                .requestMatchers("/signup.html/**").permitAll()
+                .requestMatchers("/login.html/**").permitAll()
+                .requestMatchers("/addcar.html/**").permitAll()
+                .requestMatchers("/manage.html/**").permitAll()
+//                .requestMatchers("/js/**").permitAll()
+              
 //                .anyRequest().authenticated() // All other endpoints require authentication
             )
             .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

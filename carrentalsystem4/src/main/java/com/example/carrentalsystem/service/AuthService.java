@@ -1,5 +1,6 @@
 package com.example.carrentalsystem.service;
 
+import com.example.carrentalsystem.dto.LoginResponse;
 import com.example.carrentalsystem.model.User;
 import com.example.carrentalsystem.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
@@ -17,7 +18,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
-    private final String SECRET_KEY = "f0cb7a4b2c0a6b812ed1d16f0c4327e6d27e392b8b5f9a671ff07f13e9fcd9f3"; // Same simple, short key
+    private final String SECRET_KEY = "f0cb7a4b2c0a6b812ed1d16f0c4327e6d27e392b8b5f9a671ff07f13e9fcd9f3"; // Secure key
 
     public String register(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -25,13 +26,14 @@ public class AuthService {
         return "User registered successfully!";
     }
 
-    public String login(String email, String password) {
+    public LoginResponse login(String email, String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
-                return generateToken(user);
+                String token = generateToken(user);
+                return new LoginResponse(token, user); // Return token and user details
             }
         }
         throw new RuntimeException("Invalid credentials");
@@ -40,10 +42,10 @@ public class AuthService {
     private String generateToken(User user) {
         return Jwts.builder()
                 .setSubject(user.getEmail()) // Use email as subject
-                .claim("role", user.getRole().name()) // Optional: Add role as claim
+                .claim("role", user.getRole().name()) // Add role as claim
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1-day expiration
-                .signWith(SignatureAlgorithm.HS384, SECRET_KEY) // Easier algorithm
+                .signWith(SignatureAlgorithm.HS384, SECRET_KEY) // Secure algorithm
                 .compact();
     }
 }
