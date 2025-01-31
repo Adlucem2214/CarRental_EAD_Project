@@ -19,38 +19,79 @@
 </head>
 <body class="overflow-x-hidden font-sans bg-gray-100">
   <!-- Header -->
-  <header class="fixed top-0 w-full bg-gray-50 z-50 flex justify-between items-center px-10 py-4 shadow">
-    <a href="#" class="logo">
-      <img src="img/logo.png" alt="Logo" class="w-24">
+<header class="bg-white shadow-md">
+  <div class="container mx-auto p-4 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="index.html">
+      <img src="img/logo1.png" alt="Car Rental Logo" class="h-14 w-46">
     </a>
-    <ul class="hidden lg:flex space-x-6">
-      <li><a href="#home" class="text-gray-700 hover:text-blue-500">Home</a></li>
-      <li><a href="#cars" class="text-gray-700 hover:text-blue-500">Cars</a></li>
-      <li><a href="#contact" class="text-gray-700 hover:text-blue-500">Contact</a></li>
-    </ul>
-    <div class="flex items-center space-x-4">
-      <a href="mybookings.html" class="text-blue-600 border px-4 py-2 rounded-lg">My Bookings</a>
-      <a href="login.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Logout</a>
-    </div>
-  </header>
+    
+    <!-- Navigation -->
+    <nav>
+      <ul class="flex gap-5 items-center">
+        <li><a href="index.html" class="text-gray-700 hover:text-blue-500">Home</a></li>
+        <li><a href="listcars.html" class="text-gray-700 hover:text-blue-500">Cars</a></li>
+        <li><a href="mybookings.html" class="text-gray-700 hover:text-blue-500">Bookings</a></li>
+        <li>
+          <button onclick="logout()" class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+            Logout
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
   <!-- Main Content -->
   <div class="container mx-auto mt-20 px-4">
-    <a href="index.html" class="flex items-center text-gray-600 hover:text-blue-500 mb-6">
+    <a href="listcars.html" class="flex items-center text-gray-600 hover:text-blue-500 mb-6">
       <i class="bx bx-arrow-back mr-2"></i> Back to Cars
     </a>
 
-    <div id="car-details" class="p-6 shadow rounded-lg bg-white">
+    <div id="car-details" class="p-6 shadow rounded-lg bg-white mb-20">
       <!-- Car details and booking form will be dynamically populated here -->
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="bg-blue-900 text-white py-8">
-    <div class="container mx-auto text-center">
-      <p>© 2025 CarRentals. All Rights Reserved.</p>
+    <footer class="bg-blue-900 text-white py-8">
+    <div class="container mx-auto px-4 flex flex-wrap justify-between items-start gap-8">
+        <div class="flex-1 min-w-[250px]">
+            <img src="img/logo1.png" alt="Logo" class="mb-4 w-32">
+            <p class="text-md leading-6">
+                Your trusted partner for reliable car rentals, offering a wide range of vehicles to suit your needs.
+            </p>
+        </div>
+        <div class="flex-1 min-w-[200px]">
+            <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2 text-md">
+                <li><a href="index.html" class="hover:underline">Home</a></li>
+                <li><a href="listcars.html" class="hover:underline">Ride</a></li>
+                <li><a href="mybookings.html" class="hover:underline">Services</a></li>
+            </ul>
+        </div>
+
+        <div class="flex-1 min-w-[200px]">
+            <h4 class="text-lg font-semibold mb-4">Contact Us</h4>
+            <p class="text-md">📍 123 Main Street, City, Country</p>
+            <p class="text-md">📞 +251 973820194</p>
+            <p class="text-md">✉️ support@carrent.com</p>
+        </div>
+        <div class="flex-1 min-w-[200px]">
+            <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+                <a href="#" class="text-white text-xl hover:text-gray-300"><i class='bx bxl-facebook'></i></a>
+                <a href="#" class="text-white text-xl hover:text-gray-300"><i class='bx bxl-twitter'></i></a>
+                <a href="#" class="text-white text-xl hover:text-gray-300"><i class='bx bxl-instagram'></i></a>
+                <a href="#" class="text-white text-xl hover:text-gray-300"><i class='bx bxl-linkedin'></i></a>
+            </div>
+        </div>
     </div>
-  </footer>
+    <div class="border-t border-indigo-500 mt-8 pt-4 text-center">
+        <p class="text-sm">© 2025 CarRentals. All Rights Reserved.</p>
+    </div>
+    </footer>
+    
 
   <script>
     const carId = new URLSearchParams(window.location.search).get('id');
@@ -69,7 +110,7 @@
         	  <div class="grid md:grid-cols-2 gap-8">
         	    <div class="aspect-w-1 aspect-h-1 w-full h-full max-w-[500px] mx-auto">
         	      <img src="${car.imagePath || 'https://via.placeholder.com/500'}" alt="${car.make} ${car.model}" class="rounded-lg shadow-lg object-cover w-full h-full">
-        	      <div class="flex space-x-4 mt-4">
+        	      <div class="flex space-x-4 mt-12">
         	        <a href="#" class="text-gray-600 hover:text-blue-500"><i class="bx bxl-facebook-circle text-2xl"></i></a>
         	        <a href="#" class="text-gray-600 hover:text-blue-500"><i class="bx bxl-twitter text-2xl"></i></a>
         	        <a href="#" class="text-gray-600 hover:text-blue-500"><i class="bx bxl-pinterest text-2xl"></i></a>
@@ -79,14 +120,14 @@
         	    <div>
         	      <div class="shadow-lg p-6 bg-white rounded-lg space-y-4">
         	        <div class="flex items-center justify-between">
-        	          <h1 class="text-2xl font-semibold">${car.make} ${car.model}</h1>
+        	          <h1 class="text-2xl font-semibold">${car.make}</h1>
         	          <span class="text-sm px-3 py-1 rounded-full ${
         	            car.availabilityStatus === 'Available'
         	              ? 'bg-green-100 text-green-600'
         	              : 'bg-red-100 text-red-600'
         	          }">${car.availabilityStatus}</span>
         	        </div>
-        	        <p class="text-sm text-gray-600">Luxury Sedan</p>
+        	        <p class="text-sm text-gray-600"> ${car.model}</p>
         	        <div class="flex items-center space-x-2 mt-2">
         	          <span class="text-sm font-medium text-gray-500">Year of Production:</span>
         	          <span class="text-sm font-medium">${car.year}</span>
@@ -141,7 +182,8 @@
 
       const days = (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24) + 1;
 
-      const totalPrice = days * 120.0; // Replace 120.0 with the car's actual price per day
+      const totalPrice = days * 120;
+      console.log("totalPrice");
       const bookingData = { carId: parseInt(carId), userId: parseInt(userId), startDate, endDate, totalPrice };
 
       try {

@@ -5,22 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add New Car</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+      * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-padding-top: 2rem;
+      scroll-behavior: smooth;
+      list-style: none;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+    }
+   </style>
+   
 </head>
-<body class="bg-gray-50">
+<body class="overflow-x-hidden bg-gray-100 font-sans">
   <!-- Header -->
-  <header class="bg-white shadow-sm">
-    <nav class="container mx-auto flex justify-between items-center py-4 px-6">
-      <h1 class="text-2xl font-bold text-blue-600 flex items-center">
-        <span class="material-icons mr-2">directions_car</span> CarAdmin
-      </h1>
-      <div class="space-x-6">
-        <a href="#" class="text-blue-600 font-medium border-b-2 border-blue-600">Add Cars</a>
-        <a href="#" class="text-gray-500 font-medium hover:text-blue-600">Manage Cars</a>
-        <a href="#" class="text-gray-500 font-medium hover:text-blue-600">Bookings</a>
-      </div>
-      <a href="#" class="text-red-500 font-medium hover:underline">Logout</a>
-    </nav>
-  </header>
+<header class="bg-white shadow-sm">
+  <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+    <img src="img/logo1.png" alt="Logo" class="h-14 w-46">
+    <div class="space-x-6">
+      <a href="addcar.html" class="text-blue-600 font-medium border-b-2 border-blue-600">Add Car</a>
+      <a href="manage.html" class="text-gray-500 font-medium hover:text-blue-600">Manage Car</a>
+      <a href="booking.html" class="text-gray-500 font-medium hover:text-blue-600">Bookings</a>
+    </div>
+    <button onclick="logout()" class="text-red-500 font-medium hover:underline">Logout</button>
+  </nav>
+</header>
 
   <!-- Main Content -->
   <main class="container mx-auto mt-10 px-4">
@@ -196,6 +209,14 @@
         document.getElementById("successMessage").classList.add("hidden");
       }
     });
+  </script>
+  
+  <script>
+  function logout() {
+	    localStorage.removeItem("userId");
+	    localStorage.removeItem("token");
+	    window.location.href = "adminlogin.html";
+	  }
   </script>
 </body>
 </html>

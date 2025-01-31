@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Bookings</title>
+  <title>All User Bookings</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <style>
@@ -21,17 +21,21 @@
   </style>
 </head>
 <body class="overflow-x-hidden bg-gray-100 font-sans">
-  <header class="bg-white shadow-sm">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-xl font-semibold text-gray-800">My Bookings</h1>
-      <nav>
-        <a href="/" class="text-blue-500 hover:underline">Home</a>
-      </nav>
+
+<header class="bg-white shadow-sm">
+  <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+    <img src="img/logo1.png" alt="Logo" class="h-14 w-46">
+    <div class="space-x-6">
+      <a href="addcar.html" class="text-gray-600 font-medium  hover:text-blue-600 ">Add Car</a>
+      <a href="manage.html" class="text-gray-500 font-medium hover:text-blue-600">Manage Car</a>
+      <a href="booking.html" class="text-blue-500 font-medium border-b-2 border-blue-600">Bookings</a>
     </div>
-  </header>
+    <button onclick="logout()" class="text-red-500 font-medium hover:underline">Logout</button>
+  </nav>
+</header>
 
   <main class="container min-h-screen mx-auto px-4 py-8">
-    <h2 class="text-2xl font-semibold text-gray-700 mb-6">Your Booked Cars</h2>
+    <h2 class="text-2xl font-semibold text-gray-700 mb-6">Bookings Overview</h2>
     <div id="booking-list" class="space-y-6">
       <!-- Booking cards will be dynamically inserted here -->
     </div>
@@ -44,13 +48,10 @@
   </footer>
 
   <script>
-    // Get user ID from local storage
-    const userId = JSON.parse(localStorage.getItem('userId')) || 15; // Replace with actual key used to store user ID
-
     // Function to fetch bookings from the server
     async function fetchBookings() {
       try {
-        const response = await fetch(`http://localhost:9090/bookings/user/${userId}`);
+        const response = await fetch('http://localhost:9090/bookings/admin');
         if (!response.ok) {
           throw new Error('Failed to fetch bookings');
         }
@@ -79,6 +80,7 @@
                 <h3 class="text-lg font-semibold text-gray-800">${booking.car.make} ${booking.car.model}</h3>
                 <p class="text-gray-600">Year: ${booking.car.year}</p>
                 <p class="text-gray-600">Price: <span class="font-medium text-green-500">$${booking.car.pricePerDay}/day</span></p>
+                <p class="text-gray-600">Booked By: ${booking.user.name} (${booking.user.email})</p>
               </div>
             </div>
 
@@ -100,7 +102,7 @@
     }
 
     // Function to cancel a booking
-    async function cancelBooking(bookingId) {
+/*     async function cancelBooking(bookingId) {
       try {
         const response = await fetch(`http://localhost:9090/bookings/${bookingId}`, {
           method: 'DELETE',
@@ -115,10 +117,18 @@
       } catch (error) {
         console.error('Error canceling booking:', error);
       }
-    }
+    } */
 
     // Fetch bookings on page load
     fetchBookings();
+  </script>
+  
+    <script>
+  function logout() {
+	    localStorage.removeItem("userId");
+	    localStorage.removeItem("token");
+	    window.location.href = "adminlogin.html";
+	  }
   </script>
 </body>
 </html>
